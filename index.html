@@ -36,7 +36,7 @@
     <h2>Age Verification</h2>
     <p>You must be 21 years of age or older to enter this site. Please confirm your age.</p>
     <div class="age-gate-btns">
-      <button class="btn btn-primary" onclick="document.getElementById('ageGate').style.display='none'">I'm 21 or Older</button>
+      <button class="btn btn-primary" onclick="document.getElementById('ageGate').style.display='none';document.querySelectorAll('.fade-up').forEach(function(el){el.classList.add('visible')})">I'm 21 or Older</button>
       <button class="btn-deny" onclick="window.location='https://google.com'">Under 21</button>
     </div>
   </div>
@@ -363,9 +363,14 @@ document.querySelectorAll('.hours-row').forEach(row => {
   }
 });
 const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.15 });
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.05 });
 document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+// Fallback: if age gate blocked initial observation, reveal on scroll
+window.addEventListener('scroll', function onceScroll() {
+  document.querySelectorAll('.fade-up:not(.visible)').forEach(el => observer.observe(el));
+  window.removeEventListener('scroll', onceScroll);
+}, { once: true });
 </script>
 </body>
 </html>
