@@ -21,23 +21,26 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body { background:var(--dark); color:var(--text); font-family:'Inter',sans-serif; }
+img { max-width:100%; display:block; }
 
 /* NAV */
 nav {
   position:fixed; top:0; width:100%; z-index:100;
   background:rgba(15,15,15,.92); backdrop-filter:blur(12px);
   border-bottom:1px solid rgba(201,168,76,.15);
-  padding:0 40px; height:64px;
+  padding:0 40px; height:72px;
   display:flex; align-items:center; justify-content:space-between;
 }
-.nav-logo { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--gold); letter-spacing:1px; }
+.nav-logo { display:flex; align-items:center; gap:12px; text-decoration:none; }
+.nav-logo img { height:48px; width:auto; }
+.nav-logo span { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--gold); letter-spacing:1px; }
 .nav-links { display:flex; gap:32px; }
 .nav-links a { color:var(--text-dim); text-decoration:none; font-size:13px; font-weight:500; letter-spacing:.5px; text-transform:uppercase; transition:color .2s; }
 .nav-links a:hover { color:var(--gold); }
 .nav-cta {
   background:var(--gold); color:#000; border:none; padding:10px 24px;
   font-size:12px; font-weight:600; letter-spacing:.5px; text-transform:uppercase;
-  cursor:pointer; transition:background .2s;
+  cursor:pointer; transition:background .2s; text-decoration:none;
 }
 .nav-cta:hover { background:var(--gold-light); }
 
@@ -45,19 +48,25 @@ nav {
 .hero {
   min-height:100vh; display:flex; align-items:center; justify-content:center;
   text-align:center; padding:120px 24px 80px;
-  background:linear-gradient(180deg, var(--dark) 0%, #141210 50%, var(--dark) 100%);
   position:relative; overflow:hidden;
 }
-.hero::before {
-  content:''; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-  width:600px; height:600px; border-radius:50%;
-  background:radial-gradient(circle, rgba(201,168,76,.06) 0%, transparent 70%);
+.hero-bg {
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  background:url('assets/storefront.jpg') center center / cover no-repeat;
+  filter:brightness(0.25) contrast(1.1);
+  z-index:0;
 }
-.hero-content { position:relative; max-width:720px; }
+.hero-overlay {
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  background:linear-gradient(180deg, rgba(15,15,15,0.7) 0%, rgba(15,15,15,0.5) 40%, rgba(15,15,15,0.85) 100%);
+  z-index:1;
+}
+.hero-content { position:relative; z-index:2; max-width:720px; }
+.hero-logo { width:160px; margin:0 auto 32px; }
 .hero-badge {
   display:inline-block; padding:6px 16px; border:1px solid rgba(201,168,76,.3);
   font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase;
-  color:var(--gold); margin-bottom:32px;
+  color:var(--gold); margin-bottom:24px;
 }
 .hero h1 {
   font-family:'Playfair Display',serif; font-size:clamp(40px,6vw,72px);
@@ -101,26 +110,57 @@ section { padding:100px 40px; }
 .feature-card h3 { font-family:'Playfair Display',serif; font-size:20px; margin-bottom:12px; }
 .feature-card p { color:var(--text-dim); font-size:14px; line-height:1.7; }
 
+/* PROMO */
+.promo { background:var(--dark); }
+.promo-inner {
+  display:grid; grid-template-columns:1fr 1fr; gap:48px;
+  max-width:1100px; margin:0 auto; align-items:center;
+}
+.promo-img {
+  border-radius:8px; overflow:hidden;
+  border:1px solid rgba(201,168,76,.15);
+  box-shadow:0 12px 48px rgba(0,0,0,0.4);
+}
+.promo-img img { width:100%; height:auto; display:block; }
+.promo-text h2 {
+  font-family:'Playfair Display',serif; font-size:32px; font-weight:600;
+  margin-bottom:16px;
+}
+.promo-text p { color:var(--text-dim); font-size:16px; line-height:1.8; margin-bottom:24px; }
+
 /* STATS */
-.stats { background:var(--dark); }
+.stats { background:var(--dark-2); }
 .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:40px; max-width:900px; margin:0 auto; text-align:center; }
 .stat-num { font-family:'Playfair Display',serif; font-size:48px; font-weight:700; color:var(--gold); }
 .stat-label { font-size:13px; color:var(--text-dim); margin-top:8px; text-transform:uppercase; letter-spacing:1px; }
 
 /* ABOUT */
-.about { background:var(--dark-2); }
-.about-content { max-width:720px; margin:0 auto; text-align:center; }
-.about-content p { color:var(--text-dim); font-size:16px; line-height:1.8; margin-bottom:20px; }
+.about { background:var(--dark); }
+.about-inner {
+  display:grid; grid-template-columns:1fr 1fr; gap:48px;
+  max-width:1100px; margin:0 auto; align-items:center;
+}
+.about-img {
+  border-radius:8px; overflow:hidden;
+  border:1px solid rgba(201,168,76,.15);
+  box-shadow:0 12px 48px rgba(0,0,0,0.4);
+}
+.about-img img { width:100%; height:auto; display:block; }
+.about-text h2 {
+  font-family:'Playfair Display',serif; font-size:32px; font-weight:600;
+  margin-bottom:16px;
+}
+.about-text p { color:var(--text-dim); font-size:16px; line-height:1.8; margin-bottom:20px; }
 
 /* HOURS */
-.hours { background:var(--dark); }
+.hours { background:var(--dark-2); }
 .hours-grid { max-width:480px; margin:0 auto; }
 .hours-row { display:flex; justify-content:space-between; padding:14px 0; border-bottom:1px solid rgba(255,255,255,.06); }
 .hours-day { font-weight:500; }
 .hours-time { color:var(--gold); font-weight:500; }
 
 /* CONTACT */
-.contact { background:var(--dark-2); }
+.contact { background:var(--dark); }
 .contact-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:40px; max-width:900px; margin:0 auto; text-align:center; }
 .contact-item h3 { font-family:'Playfair Display',serif; font-size:18px; margin-bottom:8px; }
 .contact-item p { color:var(--text-dim); font-size:14px; line-height:1.7; }
@@ -137,7 +177,9 @@ footer {
   padding:40px; text-align:center;
 }
 footer p { color:var(--text-dim); font-size:12px; }
-footer .footer-logo { font-family:'Playfair Display',serif; font-size:18px; color:var(--gold); margin-bottom:12px; }
+footer .footer-logo { display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:12px; }
+footer .footer-logo img { height:36px; width:auto; }
+footer .footer-logo span { font-family:'Playfair Display',serif; font-size:18px; color:var(--gold); }
 
 /* RESPONSIVE */
 @media(max-width:768px) {
@@ -145,14 +187,20 @@ footer .footer-logo { font-family:'Playfair Display',serif; font-size:18px; colo
   .nav-links { display:none; }
   section { padding:60px 20px; }
   .hero { padding:100px 20px 60px; }
+  .hero-logo { width:120px; }
   .stat-num { font-size:36px; }
+  .promo-inner, .about-inner { grid-template-columns:1fr; }
+  .promo-img { order:-1; }
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-logo">GOLD COAST</div>
+  <a href="#" class="nav-logo">
+    <img src="assets/logo.png" alt="Gold Coast Logo">
+    <span>GOLD COAST</span>
+  </a>
   <div class="nav-links">
     <a href="#about">About</a>
     <a href="#selection">Selection</a>
@@ -163,7 +211,10 @@ footer .footer-logo { font-family:'Playfair Display',serif; font-size:18px; colo
 </nav>
 
 <section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
   <div class="hero-content">
+    <img src="assets/logo.png" alt="Gold Coast" class="hero-logo">
     <div class="hero-badge">Ocean City's Premier Selection</div>
     <h1>Gold Coast Beer Wine &amp; Liquor</h1>
     <p>Your destination for the finest craft beers, premium wines, and top-shelf spirits on the Maryland coast. Serving Ocean City since day one.</p>
@@ -180,19 +231,33 @@ footer .footer-logo { font-family:'Playfair Display',serif; font-size:18px; colo
   <p class="section-sub">From local craft favorites to rare finds — we stock what matters.</p>
   <div class="features-grid">
     <div class="feature-card">
-      <div class="feature-icon">🍺</div>
+      <div class="feature-icon">&#127866;</div>
       <h3>Craft &amp; Import Beer</h3>
       <p>Hundreds of craft, domestic, and imported beers. From local Maryland breweries to Belgian abbey ales — we have the bottle you're looking for.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">🍷</div>
+      <div class="feature-icon">&#127863;</div>
       <h3>Wine Collection</h3>
       <p>Curated wines from every major region. Whether you need a casual beach pour or a special occasion vintage, our team will help you choose.</p>
     </div>
     <div class="feature-card">
-      <div class="feature-icon">🥃</div>
+      <div class="feature-icon">&#129347;</div>
       <h3>Premium Spirits</h3>
       <p>Top-shelf bourbon, tequila, vodka, rum, and more. We carry the brands you know and the bottles you'll discover for the first time.</p>
+    </div>
+  </div>
+</section>
+
+<section class="promo">
+  <div class="promo-inner">
+    <div class="promo-text">
+      <div class="gold-line" style="margin:0 0 20px"></div>
+      <h2>Featured This Month</h2>
+      <p>We carry the brands that matter — from the biggest names in spirits to handpicked selections you won't find at every store. Stop by and see what's new on the shelf.</p>
+      <a href="tel:+14105241004" class="btn-primary">Call for Availability</a>
+    </div>
+    <div class="promo-img">
+      <img src="assets/promo.jpg" alt="Featured spirits at Gold Coast">
     </div>
   </div>
 </section>
@@ -215,11 +280,16 @@ footer .footer-logo { font-family:'Playfair Display',serif; font-size:18px; colo
 </section>
 
 <section class="about" id="about">
-  <div class="gold-line"></div>
-  <h2 class="section-title">About Gold Coast</h2>
-  <div class="about-content">
-    <p>Gold Coast Beer Wine &amp; Liquor is a Class A 7-Day licensed package store located on Coastal Highway in Ocean City, Maryland. We serve locals, vacationers, and everyone in between with one of the largest selections on the Eastern Shore.</p>
-    <p>Whether you're stocking up for a beach week, grabbing a six-pack for the evening, or hunting for a specific bottle — we've got you covered. Our knowledgeable staff is always happy to help you find exactly what you need.</p>
+  <div class="about-inner">
+    <div class="about-img">
+      <img src="assets/storefront.jpg" alt="Gold Coast Beer Wine & Liquor storefront">
+    </div>
+    <div class="about-text">
+      <div class="gold-line" style="margin:0 0 20px"></div>
+      <h2>About Gold Coast</h2>
+      <p>Gold Coast Beer Wine &amp; Liquor is a Class A 7-Day licensed package store located on Coastal Highway in Ocean City, Maryland. We serve locals, vacationers, and everyone in between with one of the largest selections on the Eastern Shore.</p>
+      <p>Whether you're stocking up for a beach week, grabbing a six-pack for the evening, or hunting for a specific bottle — we've got you covered. Our knowledgeable staff is always happy to help you find exactly what you need.</p>
+    </div>
   </div>
 </section>
 
@@ -263,7 +333,10 @@ footer .footer-logo { font-family:'Playfair Display',serif; font-size:18px; colo
 </div>
 
 <footer>
-  <div class="footer-logo">GOLD COAST</div>
+  <div class="footer-logo">
+    <img src="assets/logo.png" alt="Gold Coast">
+    <span>GOLD COAST</span>
+  </div>
   <p>&copy; 2026 Gold Coast Beer Wine &amp; Liquor. All rights reserved. | Ocean City, Maryland</p>
 </footer>
 
